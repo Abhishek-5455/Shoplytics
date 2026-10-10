@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecommerce-intelligence"
+version = "0.1.0"
+description = "An end-to-end e-commerce analytics and machine learning platform"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2, <3.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
