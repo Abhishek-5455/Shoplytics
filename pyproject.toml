@@ -8,7 +8,9 @@ version = "0.1.0"
 description = "An end-to-end e-commerce analytics and machine learning platform"
 requires-python = ">=3.11"
 dependencies = [
-    "pandas>=2.2, <3.0"
+    "pandas>=2.2, <3.0",
+    "psycopg[binary]>=3.3.6",
+    "python-dotenv>=1.2.4",
 ]
 
 [project.optional-dependencies]
@@ -25,3 +27,9 @@ testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 88
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.17.0",
+]

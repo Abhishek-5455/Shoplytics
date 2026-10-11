@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.ecommerce_ml.data.validate import validate_csv
+from ecommerce_ml.data.validate import validate_csv
 
 
 def test_valid_order_data(tmp_path):

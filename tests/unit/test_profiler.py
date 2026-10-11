@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from src.ecommerce_ml.data.profiler import profile_data
+from ecommerce_ml.data.profiler import profile_data
 
 
 def test_profile_csv(tmp_path):
