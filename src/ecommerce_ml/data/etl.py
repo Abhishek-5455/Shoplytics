@@ -1,8 +1,8 @@
+import logging
+import time
 from pathlib import Path
 
 import pandas as pd
-import logging
-import time
 
 from ecommerce_ml.db import get_connection
 
@@ -146,24 +146,23 @@ def load_data(table_name: str) -> int:
     elif table_name == "geolocation":
         sql += " ON CONFLICT DO NOTHING"
 
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            for chunk in pd.read_csv(path, chunksize=batch_size):
-                missing = set(columns) - set(chunk.columns)
+    with get_connection() as conn, conn.cursor() as cur:
+        for chunk in pd.read_csv(path, chunksize=batch_size):
+            missing_columns = set(columns) - set(chunk.columns)
 
-                if missing:
-                    raise ValueError(
-                        f"{filename} has missing columns: {sorted(missing_columns)}"
-                    )
-
-                chunk = chunk[columns].astype(object).where(
-                    pd.notna(chunk), None
+            if missing_columns:
+                raise ValueError(
+                    f"{filename} has missing columns: {sorted(missing_columns)}"
                 )
 
-                rows = list(chunk.itertuples(index=False, name=None))
+            chunk = chunk[columns].astype(object).where(
+                pd.notna(chunk), None
+            )
 
-                cur.executemany(sql, rows)
-                total_rows += len(rows)
+            rows = list(chunk.itertuples(index=False, name=None))
+
+            cur.executemany(sql, rows)
+            total_rows += len(rows)
 
     return total_rows
 

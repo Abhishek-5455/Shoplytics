@@ -1,6 +1,8 @@
 import pandas as pd
-from ecommerce_ml.analysis.cluster_customers import scale_rfm, cluster_customers
 import pytest
+
+from ecommerce_ml.analysis.cluster_customers import cluster_customers, scale_rfm
+
 
 def test_scale_rfm():
     rfm = pd.DataFrame({

@@ -1,4 +1,5 @@
-from ecommerce_ml.data.etl import TABLES 
+from ecommerce_ml.data.etl import TABLES
+
 
 def test_all_expected_tables():
 	''' catches missing or accidentally renamed table configurations. '''

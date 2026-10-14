@@ -2,6 +2,7 @@ import psycopg
 
 from ecommerce_ml.configs.config import settings
 
+
 def get_connection():
 	return psycopg.connect(
 		host = settings.database_host,

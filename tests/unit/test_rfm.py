@@ -1,5 +1,7 @@
-from ecommerce_ml.analysis.rfm import build_rfm
 import pandas as pd
+
+from ecommerce_ml.analysis.rfm import build_rfm
+
 
 def test_rfm(monkeypatch):
     orders = pd.DataFrame({

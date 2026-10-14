@@ -1,9 +1,9 @@
-from sklearn.preprocessing import StandardScaler
-from .rfm import build_rfm
+import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
+from sklearn.preprocessing import StandardScaler
 
-import pandas as pd
+from .rfm import build_rfm
 
 OUTPUT_PATH = 'data/processed'
 

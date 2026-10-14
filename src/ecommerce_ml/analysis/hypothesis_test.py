@@ -1,7 +1,7 @@
-import pandas as pd
 from scipy.stats import mannwhitneyu
 
 from .loader import load_csv
+
 
 def compare_deliverd_and_canceled_price():
     orders = load_csv("olist_orders_dataset.csv")

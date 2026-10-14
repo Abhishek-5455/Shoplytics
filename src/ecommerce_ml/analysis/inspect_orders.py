@@ -1,5 +1,6 @@
 from .loader import load_csv
 
+
 def order_status_distribution():
 	orders = load_csv("olist_orders_dataset.csv")
 

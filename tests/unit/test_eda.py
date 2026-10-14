@@ -1,8 +1,8 @@
-from ecommerce_ml.analysis.eda import summarise_dataframe, numerical_summary
-from ecommerce_ml.analysis.loader import load_csv
-
 import pandas as pd
 import pytest
+
+from ecommerce_ml.analysis.eda import numerical_summary, summarise_dataframe
+from ecommerce_ml.analysis.loader import load_csv
 
 
 def test_summarise_dataframe():

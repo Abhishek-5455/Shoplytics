@@ -2,6 +2,7 @@ import pandas as pd
 
 from .loader import load_csv
 
+
 def build_rfm(reference_date: str | None = None) -> pd.DataFrame:
     orders = load_csv("olist_orders_dataset.csv")
     items = load_csv("olist_order_items_dataset.csv")

@@ -1,5 +1,7 @@
-from .loader import load_csv
 import pandas as pd
+
+from .loader import load_csv
+
 
 def order_purchase_date_summary():
 	orders = load_csv('olist_orders_dataset.csv')

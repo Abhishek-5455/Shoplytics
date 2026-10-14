@@ -1,7 +1,8 @@
-from .rfm import build_rfm
-from .cluster_customers import cluster_customers
-
 import pandas as pd
+
+from .cluster_customers import cluster_customers
+from .rfm import build_rfm
+
 
 def compare_segments(cluster_count = (2,4,5)):
     """This compares the mean RFM characteristics and customer proportions for each tested cluster count."""

@@ -1,5 +1,6 @@
 from .loader import load_csv
 
+
 def customer_order_summary():
     orders = load_csv("olist_orders_dataset.csv")
 

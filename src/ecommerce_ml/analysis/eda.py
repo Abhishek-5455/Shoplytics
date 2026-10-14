@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def summarise_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 	return pd.DataFrame({
 		'dtype': df.dtypes.astype(str),
