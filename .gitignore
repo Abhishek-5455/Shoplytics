@@ -31,7 +31,6 @@ data/processed/*
 
 # Generated reports and models
 reports/*
-models/
 *.joblib
 *.pkl
 
