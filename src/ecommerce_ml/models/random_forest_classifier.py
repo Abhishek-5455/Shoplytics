@@ -30,7 +30,8 @@ def train_delivery_classifier(data: pd.DataFrame, test_size=0.2, random_state = 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y,
         test_size=test_size,
-        random_state=random_state
+        random_state=random_state,
+        stratify=y
     )
 
     model = Pipeline([
@@ -40,7 +41,10 @@ def train_delivery_classifier(data: pd.DataFrame, test_size=0.2, random_state = 
             min_samples_split=2,
             min_samples_leaf=20,
             max_features=0.7,
-            class_weight='balanced_subsample'
+            class_weight='balanced_subsample',
+            random_state=random_state,
+            max_depth=None,
+            n_jobs=-1
         ))
     ])
 
@@ -85,7 +89,8 @@ if __name__ == '__main__':
         {
             'model': model,
             'features': FEATURES,
-            'target': TARGET
+            'target': TARGET,
+            'threshold': 0.5
         },
         model_path
     )

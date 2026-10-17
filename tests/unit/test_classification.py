@@ -1,4 +1,4 @@
-from ecommerce_ml.models.classifier import FEATURES, train_delivery_classifier
+from ecommerce_ml.models.random_forest_classifier import FEATURES, train_delivery_classifier
 
 import pandas as pd
 
