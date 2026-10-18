@@ -13,7 +13,7 @@ from sklearn.metrics import (
 import pandas as pd
 import joblib
 
-from ecommerce_ml.features.engineering import build_delivery_features
+from ecommerce_ml.features.late_delivery import build_delivery_features
 from .benchmark_classifiers import FEATURES, TARGET
 from pathlib import Path
 

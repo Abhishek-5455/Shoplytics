@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ecommerce_ml.features.engineering import build_delivery_features
+from ecommerce_ml.features.late_delivery import build_delivery_features
 
 
 def test_build_delivery_features(monkeypatch):

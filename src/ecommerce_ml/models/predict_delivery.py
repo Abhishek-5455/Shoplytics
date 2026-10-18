@@ -24,12 +24,16 @@ def predict_delivery_risk(data: pd.DataFrame):
     missing_columns = set(features) - set(data.columns)
 
     if missing_columns:
-        raise ValueError(f"Input data contains missing columns: {missing_columns}")
+        raise ValueError(f"Missing required features: {missing_columns}")
 
     X = data[features]
-    probability = model.predict_proba(X)[:, 1]
-    prediction = (probability >= threshold).astype(int)
+    probabilities = model.predict_proba(X)[:, 1]
+    predictions = (probabilities >= threshold).astype(int)
 
+    return pd.DataFrame({
+        'late_delivery_probability': probabilities,
+        'delivery_prediction': predictions
+    })
     return probability, prediction
 
 if __name__ == '__main__':
@@ -108,10 +112,8 @@ if __name__ == '__main__':
         },
     ])
 
-    probabilities, predictions = predict_delivery_risk(X)
+    result = predict_delivery_risk(X)
 
-    for probability, prediction in zip(probabilities, predictions):
-        print(f"Late delivery probability : {probability * 100:.2f}%")
-        print(f"Delivery: {"Late" if prediction == 1 else "On Time"}")
+    print(result.round(4).to_string(index=False))
 
     

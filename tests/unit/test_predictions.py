@@ -1,5 +1,6 @@
 import pandas as pd
 import pytest
+import numpy as np
 
 from ecommerce_ml.models import predict_delivery
 
@@ -7,10 +8,10 @@ from ecommerce_ml.models import predict_delivery
 def test_predict_delivery_returns_expected_columns(monkeypatch):
     class FakeModel:
         def predict_proba(self, X):
-            return [
+            return np.array([
                 [0.8, 0.2],
                 [0.3, 0.7],
-            ]
+            ])
 
     monkeypatch.setattr(
         predict_delivery,
@@ -53,12 +54,9 @@ def test_predict_delivery_returns_expected_columns(monkeypatch):
 
     result = predict_delivery.predict_delivery_risk(X)
 
-    assert list(result.columns) == [
-        "probabilities",
-        "predictions",
-    ]
-    assert result["predictions"].tolist() == [0, 1]
-    assert result["probabilities"].tolist() == [0.2, 0.7]
+    assert len(result.columns) == 2
+    assert result["delivery_prediction"].tolist() == [0, 1]
+    assert result["late_delivery_probability"].tolist() == [0.2, 0.7]
 
 
 def test_predict_delivery_rejects_missing_features():

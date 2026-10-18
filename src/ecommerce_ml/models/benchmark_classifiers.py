@@ -16,7 +16,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 
-from ecommerce_ml.features.engineering import build_delivery_features
+from ecommerce_ml.features.late_delivery import build_delivery_features
 
 FEATURES = [
     "purchase_hour",

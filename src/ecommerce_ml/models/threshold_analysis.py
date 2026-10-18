@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
 from .random_forest_classifier import train_delivery_classifier
-from ecommerce_ml.features.engineering import build_delivery_features
+from ecommerce_ml.features.late_delivery import build_delivery_features
 
 def analyze_thresholds(data: pd.DataFrame):
     model, X_test, y_test = train_delivery_classifier(data)
