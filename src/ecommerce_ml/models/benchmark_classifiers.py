@@ -1,5 +1,4 @@
 import pandas as pd
-
 from sklearn.dummy import DummyClassifier
 from sklearn.ensemble import ExtraTreesClassifier, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression

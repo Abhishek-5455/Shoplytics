@@ -2,6 +2,7 @@ import pandas as pd
 
 from ecommerce_ml.analysis.loader import load_csv
 
+
 def build_delivery_time_features() -> pd.DataFrame:
     orders = load_csv('olist_orders_dataset.csv')
     items = load_csv('olist_order_items_dataset.csv')

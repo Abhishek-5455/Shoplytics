@@ -1,6 +1,7 @@
+import pandas as pd
+
 from ecommerce_ml.analysis.loader import load_csv
 
-import pandas as pd
 
 def build_delivery_features():
     orders = load_csv("olist_orders_dataset.csv")

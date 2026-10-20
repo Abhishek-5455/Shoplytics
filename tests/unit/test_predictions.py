@@ -2,7 +2,7 @@ import pandas as pd
 import pytest
 import numpy as np
 
-from ecommerce_ml.models import predict_delivery
+from ecommerce_ml.models import predict_late_delivery
 
 
 def test_predict_delivery_returns_expected_columns(monkeypatch):
@@ -14,7 +14,7 @@ def test_predict_delivery_returns_expected_columns(monkeypatch):
             ])
 
     monkeypatch.setattr(
-        predict_delivery,
+        predict_late_delivery,
         "load_model",
         lambda: (
             FakeModel(),
@@ -52,7 +52,7 @@ def test_predict_delivery_returns_expected_columns(monkeypatch):
         },
     ])
 
-    result = predict_delivery.predict_delivery_risk(X)
+    result = predict_late_delivery.predict_delivery_risk(X)
 
     assert len(result.columns) == 2
     assert result["delivery_prediction"].tolist() == [0, 1]
@@ -63,4 +63,4 @@ def test_predict_delivery_rejects_missing_features():
     X = pd.DataFrame([{"purchase_hour": 10}])
 
     with pytest.raises(ValueError, match="Missing required features"):
-        predict_delivery.predict_delivery_risk(X)
+        predict_late_delivery.predict_delivery_risk(X)

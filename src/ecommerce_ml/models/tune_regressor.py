@@ -1,12 +1,11 @@
-import pandas as pd
-import numpy as np
 
 from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.model_selection import RandomizedSearchCV
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 from ecommerce_ml.features.delivery_time import build_delivery_time_features
-from .benchmark_regressor import FEATURES, TARGET, evaluate_model
+
+from .benchmark_regressor import FEATURES, TARGET
+
 
 def tune_delivery_time_model():
     data = build_delivery_time_features()

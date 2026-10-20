@@ -1,10 +1,14 @@
-import pandas as pd
 import numpy as np
-
+import pandas as pd
 from sklearn.dummy import DummyRegressor
-from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor
+from sklearn.ensemble import ExtraTreesRegressor, RandomForestRegressor
 from sklearn.linear_model import Ridge
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, median_absolute_error
+from sklearn.metrics import (
+    mean_absolute_error,
+    mean_squared_error,
+    median_absolute_error,
+    r2_score,
+)
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 

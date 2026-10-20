@@ -1,10 +1,10 @@
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import average_precision_score
+from sklearn.model_selection import RandomizedSearchCV, train_test_split
 
 from ecommerce_ml.features.late_delivery import build_delivery_features
-from .benchmark_classifiers import FEATURES, TARGET
 
-from sklearn.model_selection import RandomizedSearchCV, train_test_split
+from .benchmark_classifiers import FEATURES, TARGET
 
 
 def tune_best_classifier():
