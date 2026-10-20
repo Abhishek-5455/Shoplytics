@@ -1,16 +1,12 @@
-import pandas as pd
-import numpy as np
-
-from sklearn.ensemble import ExtraTreesRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
-
-from ecommerce_ml.features.delivery_time import build_delivery_time_features
-from .benchmark_regressor import FEATURES, TARGET, evaluate_model
 
 from pathlib import Path
+
 import joblib
+from sklearn.ensemble import ExtraTreesRegressor
+
+from ecommerce_ml.features.delivery_time import build_delivery_time_features
+
+from .benchmark_regressor import FEATURES, TARGET, evaluate_model
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
 MODEL_DIR = PROJECT_ROOT / 'models'

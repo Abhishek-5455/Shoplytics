@@ -1,10 +1,10 @@
 import pandas as pd
-from sklearn.metrics import precision_score, recall_score, f1_score
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import f1_score, precision_score, recall_score
+
+from ecommerce_ml.features.late_delivery import build_delivery_features
 
 from .random_forest_classifier import train_delivery_classifier
-from ecommerce_ml.features.late_delivery import build_delivery_features
+
 
 def analyze_thresholds(data: pd.DataFrame):
     model, X_test, y_test = train_delivery_classifier(data)

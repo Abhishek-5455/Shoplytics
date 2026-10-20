@@ -1,7 +1,8 @@
+from pathlib import Path
+
+import joblib
+import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import (
     accuracy_score,
     confusion_matrix,
@@ -10,12 +11,13 @@ from sklearn.metrics import (
     recall_score,
     roc_auc_score,
 )
-import pandas as pd
-import joblib
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 from ecommerce_ml.features.late_delivery import build_delivery_features
+
 from .benchmark_classifiers import FEATURES, TARGET
-from pathlib import Path
 
 ROOT_DIR = Path(__name__).parent.parent.parent.parent
 MODEL_DIR = ROOT_DIR / 'models'

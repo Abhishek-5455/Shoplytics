@@ -1,6 +1,7 @@
-import pandas as pd
 from pathlib import Path
+
 import joblib
+import pandas as pd
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
 MODEL_PATH = PROJECT_ROOT / 'models' / 'delivery_time_extra_trees.joblib'

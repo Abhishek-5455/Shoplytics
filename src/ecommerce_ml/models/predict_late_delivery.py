@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import joblib
 import pandas as pd
 
@@ -34,7 +35,6 @@ def predict_delivery_risk(data: pd.DataFrame):
         'late_delivery_probability': probabilities,
         'delivery_prediction': predictions
     })
-    return probability, prediction
 
 if __name__ == '__main__':
     X = pd.DataFrame([
