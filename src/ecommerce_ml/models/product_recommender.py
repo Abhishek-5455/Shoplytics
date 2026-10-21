@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import normalize
 
 from ecommerce_ml.features.product_recommendation import build_product_purchase_matrix
 
