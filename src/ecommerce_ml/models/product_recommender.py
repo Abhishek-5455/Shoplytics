@@ -1,7 +1,52 @@
 import numpy as np
-from sklearn.preprocessing import normalize
+import pandas as pd
 
 from ecommerce_ml.features.product_recommendation import build_product_purchase_matrix
+
+from ecommerce_ml.analysis.loader import load_csv
+
+
+
+def get_popular_products(top_n=5, cutoff_date=None):
+    """Return the most frequently purchased products before a cutoff."""
+    if top_n < 1:
+        raise ValueError("top_n must be at least 1.")
+
+    orders = load_csv("olist_orders_dataset.csv")
+    items = load_csv("olist_order_items_dataset.csv")
+
+    orders["order_purchase_timestamp"] = pd.to_datetime(
+        orders["order_purchase_timestamp"], errors="coerce"
+    )
+
+    delivered_orders = orders.loc[
+        orders["order_status"].eq("delivered"),
+        ["order_id", "order_purchase_timestamp"],
+    ].dropna(subset=["order_purchase_timestamp"])
+
+    if cutoff_date is not None:
+        cutoff = pd.Timestamp(cutoff_date)
+        delivered_orders = delivered_orders.loc[
+            delivered_orders["order_purchase_timestamp"] < cutoff
+        ]
+
+    popular = (
+        items.merge(
+            delivered_orders[["order_id"]],
+            on="order_id",
+            how="inner",
+            validate="many_to_one",
+        )
+        .groupby("product_id")["order_id"]
+        .nunique()
+        .sort_values(ascending=False)
+        .head(top_n)
+    )
+
+    return [
+        {"product_id": product_id, "purchase_count": int(count)}
+        for product_id, count in popular.items()
+    ]
 
 
 def build_product_similarity():
