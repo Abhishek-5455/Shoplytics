@@ -1,11 +1,11 @@
-from sklearn.preprocessing import normalize
-
 import numpy as np
+from sklearn.preprocessing import normalize
 
 from ecommerce_ml.features.product_recommendation import build_product_purchase_matrix
 
+
 def build_product_similarity():
-    purchase_matrix, customers, products = build_product_purchase_matrix()
+    purchase_matrix, _, products = build_product_purchase_matrix()
 
     normalized = normalize(purchase_matrix.T, norm='l2', axis=1)
 
