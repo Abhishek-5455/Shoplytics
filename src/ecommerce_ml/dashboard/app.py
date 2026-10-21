@@ -58,7 +58,6 @@ if st.sidebar.button("Refresh dashboard", use_container_width=True):
     st.cache_data.clear()
     st.rerun()
 
-st.sidebar.caption("Shoplytics | Phase 7")
 
 
 @st.cache_data(ttl=60)
@@ -140,8 +139,8 @@ if st.button("Refresh dashboard"):
 
 try:
     if page == 'Business Overview':
-        st.title("Shoplytics")
         st.subheader("Business Overview")
+        st.caption("Monitor orders, revenue, and business performance.")
 
         with st.spinner("Loading data from PostgreSQL..."):
             metrics, payments, monthly_orders, order_status = load_overview()
@@ -155,7 +154,6 @@ try:
     
         late_rate = late_orders / comparable * 100 if comparable else 0.0
     
-        st.subheader("Business Overview")
     
         col1, col2, col3, col4 = st.columns(4)
         col1.metric("Total Orders", f"{total_orders:,}")
@@ -193,8 +191,8 @@ try:
         )
 
     elif page == 'Delivery Analytics':
-        st.title("Shoplytics")
         st.subheader("Delivery Analytics")
+        st.caption("Analyze historical delivery performance.")
 
         delivery_data = read_query(
             """
@@ -282,8 +280,8 @@ try:
     
     # st.divider()
     elif page == 'ML Predictions':
-        st.title("Shoplytics")
-        st.subheader("Machine Learning Predictions")
+        st.subheader("ML Predictions")
+        st.caption("Estimate delivery risk and delivery duration.")
 
         prediction_tab1, prediction_tab2 = st.tabs(
             ["Late-Delivery Risk", "Delivery-Time Estimate"]
