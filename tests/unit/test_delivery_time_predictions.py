@@ -4,7 +4,6 @@ import pytest
 
 from ecommerce_ml.models import predict_delivery_time
 
-
 FEATURE_COLUMNS = [
     "purchase_hour",
     "purchase_day_of_week",

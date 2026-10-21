@@ -1,5 +1,3 @@
-from sklearn.preprocessing import normalize
-
 import numpy as np
 import pandas as pd
 
@@ -52,7 +50,7 @@ def get_popular_products(top_n=5, cutoff_date=None):
 
 
 def build_product_similarity():
-    purchase_matrix, customers, products = build_product_purchase_matrix()
+    purchase_matrix, _, products = build_product_purchase_matrix()
 
     normalized = normalize(purchase_matrix.T, norm='l2', axis=1)
 

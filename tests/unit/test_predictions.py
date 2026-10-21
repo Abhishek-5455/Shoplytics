@@ -1,6 +1,6 @@
+import numpy as np
 import pandas as pd
 import pytest
-import numpy as np
 
 from ecommerce_ml.models import predict_late_delivery
 

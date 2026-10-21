@@ -109,7 +109,7 @@ if __name__ == '__main__':
             "item_count": 2,
             "total_price": 250.0,
             "total_freight": 35.0,
-        },
+        }
     ])
 
     result = predict_delivery_risk(X)

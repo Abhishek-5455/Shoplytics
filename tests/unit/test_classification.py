@@ -1,6 +1,10 @@
-from ecommerce_ml.models.random_forest_classifier import FEATURES, train_delivery_classifier
-
 import pandas as pd
+
+from ecommerce_ml.models.random_forest_classifier import (
+    FEATURES,
+    train_delivery_classifier,
+)
+
 
 def test_train_deliver_classifier():
     rows = []
