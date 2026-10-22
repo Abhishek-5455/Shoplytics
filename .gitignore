@@ -26,14 +26,6 @@ data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
-# Notebooks
-.ipynb_checkpoints/
-
-# Generated reports and models
-reports/*
-*.joblib
-*.pkl
-
 # streamlit secrets
 .streamlit/secrets.toml
 
