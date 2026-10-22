@@ -7,7 +7,6 @@ from datetime import date
 import streamlit as st
 
 from ecommerce_ml.dashboard.utils import date_params
-
 from ecommerce_ml.dashboard.views import (
     render_customers,
     render_delivery,
@@ -16,15 +15,12 @@ from ecommerce_ml.dashboard.views import (
     render_predictions,
     render_sales,
 )
-
 from ecommerce_ml.models.predict_delivery_time import (
     predict_delivery_time,
 )
-
 from ecommerce_ml.models.predict_late_delivery import (
     predict_delivery_risk,
 )
-
 
 st.set_page_config(
     page_title="Shoplytics | E-commerce Intelligence",

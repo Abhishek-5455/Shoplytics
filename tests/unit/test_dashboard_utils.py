@@ -11,7 +11,6 @@ from ecommerce_ml.dashboard.prediction_logic import (
     read_duration_result,
     read_late_risk_result,
 )
-
 from ecommerce_ml.dashboard.queries import (
     customer_query,
     delivery_query,
@@ -19,14 +18,12 @@ from ecommerce_ml.dashboard.queries import (
     payment_queries,
     sales_queries,
 )
-
 from ecommerce_ml.dashboard.utils import (
     date_params,
     date_predicate,
     format_money,
     safe_scalar,
 )
-
 
 # -------------------------------------------------
 # Date utility tests

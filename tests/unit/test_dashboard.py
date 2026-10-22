@@ -1,9 +1,8 @@
 
-from unittest.mock import MagicMock, patch
-
-import pandas as pd
-from streamlit.testing.v1 import AppTest
 from pathlib import Path
+from unittest.mock import patch
+
+from streamlit.testing.v1 import AppTest
 
 ROOT_DIR = Path(__file__).parent.parent.parent
 

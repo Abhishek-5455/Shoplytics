@@ -6,7 +6,6 @@ from datetime import date
 
 from ecommerce_ml.dashboard.utils import date_params, date_predicate
 
-
 ORDERS_DATE = date_predicate("order_purchase_timestamp")
 ALIASED_ORDERS_DATE = date_predicate("o.order_purchase_timestamp")
 

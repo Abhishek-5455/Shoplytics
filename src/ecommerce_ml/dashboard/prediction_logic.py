@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import pandas as pd
 
-
 RISK_FEATURES = (
     "purchase_hour",
     "purchase_day_of_week",

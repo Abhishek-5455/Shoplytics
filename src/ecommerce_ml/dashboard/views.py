@@ -8,19 +8,18 @@ from ecommerce_ml.dashboard.prediction_logic import (
     build_duration_features,
     build_risk_features,
     read_duration_result,
-    read_late_risk_result
+    read_late_risk_result,
 )
-
 from ecommerce_ml.dashboard.queries import (
     customer_query,
     delivery_query,
     overview_queries,
     payment_queries,
     query_params,
-    sales_queries
+    sales_queries,
 )
-
 from ecommerce_ml.dashboard.utils import format_money
+
 
 def page_header(title, subtitle):
     st.title(title)

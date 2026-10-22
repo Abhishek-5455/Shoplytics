@@ -4,6 +4,7 @@ from scipy.sparse import csr_matrix
 
 from ecommerce_ml.analysis.loader import load_csv
 
+
 def get_popular_products(top_n=5):
     """Return the most frequently purchased products."""
     if top_n < 1:

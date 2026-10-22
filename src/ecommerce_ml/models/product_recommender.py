@@ -2,10 +2,8 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import normalize
 
-from ecommerce_ml.features.product_recommendation import build_product_purchase_matrix
-
 from ecommerce_ml.analysis.loader import load_csv
-
+from ecommerce_ml.features.product_recommendation import build_product_purchase_matrix
 
 
 def get_popular_products(top_n=5, cutoff_date=None):

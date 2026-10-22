@@ -34,6 +34,9 @@ reports/*
 *.joblib
 *.pkl
 
+# streamlit secrets
+.streamlit/secrets.toml
+
 # IDE and operating system
 .vscode/
 .idea/
