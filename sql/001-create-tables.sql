@@ -74,6 +74,15 @@ CREATE TABLE IF NOT EXISTS geolocation(
     geolocation_state CHAR(2)
 );
 
+CREATE UNIQUE INDEX IF NOT EXISTS geolocation_natural_key
+    ON geolocation (
+        geolocation_zip_code_prefix,
+        geolocation_lat,
+        geolocation_lng,
+        geolocation_city,
+        geolocation_state
+    ) NULLS NOT DISTINCT;
+
 CREATE TABLE IF NOT EXISTS product_category_translation (
     product_category_name TEXT PRIMARY KEY,
     product_category_name_english TEXT NOT NULL
