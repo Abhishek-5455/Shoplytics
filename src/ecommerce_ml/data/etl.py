@@ -137,13 +137,27 @@ def load_data(table_name: str) -> int:
     placeholders = ", ".join(["%s"] * len(columns))
 
     sql = (
-        f'INSERT INTO "{table_name}" ({columns_sql}) VALUES ({placeholders})'
+        f'INSERT INTO public."{table_name}" '
+        f"({columns_sql}) VALUES ({placeholders})"
     )
 
     if primary_key:
         conflict_columns = ", ".join(f'"{c}"' for c in primary_key)
-        sql += f"ON CONFLICT ({conflict_columns}) DO NOTHING"
+        sql += f" ON CONFLICT ({conflict_columns}) DO NOTHING"
     elif table_name == "geolocation":
+        with get_connection() as conn, conn.cursor() as cur:
+            cur.execute(
+                """
+                CREATE UNIQUE INDEX IF NOT EXISTS geolocation_natural_key
+                ON public.geolocation (
+                    geolocation_zip_code_prefix,
+                    geolocation_lat,
+                    geolocation_lng,
+                    geolocation_city,
+                    geolocation_state
+                ) NULLS NOT DISTINCT
+                """
+            )
         sql += " ON CONFLICT DO NOTHING"
 
     with get_connection() as conn, conn.cursor() as cur:
@@ -162,6 +176,11 @@ def load_data(table_name: str) -> int:
             rows = list(chunk.itertuples(index=False, name=None))
 
             cur.executemany(sql, rows)
+            logger.info(
+                            "Loaded %s rows into %s table",
+                            batch_size,
+                            table_name
+                        )
             total_rows += len(rows)
 
     return total_rows
@@ -179,7 +198,7 @@ def run_etl() -> None:
             elapsed = time.perf_counter() - table_start
 
             logger.info(
-                "Loaded %s: %s rows processed in %.2f seconds",
+                "Processed %s: %s source rows in %.2f seconds",
                 table_name,
                 count,
                 elapsed

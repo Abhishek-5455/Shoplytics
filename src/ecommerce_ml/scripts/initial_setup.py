@@ -4,11 +4,7 @@ ROOT_DIR = Path(__file__).parent.parent.parent.parent
 
 REQUIRED_DIRECTORIES = [
     "data/raw",
-    "data/processed",
-    "data/interim",
-    "data/external",
-    "reports/figures",
-    "reports/tables"
+    "data/processed"
 ]
 
 def setup():

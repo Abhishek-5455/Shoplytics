@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pandas as pd
 import streamlit as st
 
@@ -20,10 +22,156 @@ from ecommerce_ml.dashboard.queries import (
 )
 from ecommerce_ml.dashboard.utils import format_money
 
+CLUSTER_REPORT_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "data"
+    / "processed"
+    / "customer_cluster_report.csv"
+)
+CLUSTER_REPORT_COLUMNS = (
+    "customer_unique_id",
+    "recency",
+    "frequency",
+    "monetary",
+    "cluster",
+    "segment_names",
+)
+
 
 def page_header(title, subtitle):
     st.title(title)
     st.caption(subtitle)
+
+
+@st.cache_data(ttl=60, show_spinner=False)
+def load_cluster_report(path: Path = CLUSTER_REPORT_PATH) -> pd.DataFrame:
+    """Load the exported per-customer cluster report."""
+    report = pd.read_csv(path, index_col=0)
+    missing_columns = set(CLUSTER_REPORT_COLUMNS) - set(report.columns)
+    if missing_columns:
+        raise ValueError(
+            "Customer cluster report is missing required columns: "
+            + ", ".join(sorted(missing_columns))
+        )
+    return report.loc[:, CLUSTER_REPORT_COLUMNS]
+
+
+def summarize_cluster_report(report: pd.DataFrame) -> pd.DataFrame:
+    """Aggregate per-customer RFM values into cluster profiles."""
+    summary = (
+        report.groupby(["cluster", "segment_names"], as_index=False)
+        .agg(
+            customer_count=("customer_unique_id", "count"),
+            avg_recency=("recency", "mean"),
+            median_recency=("recency", "median"),
+            avg_frequency=("frequency", "mean"),
+            median_frequency=("frequency", "median"),
+            avg_monetary=("monetary", "mean"),
+            median_monetary=("monetary", "median"),
+        )
+        .sort_values("cluster")
+        .reset_index(drop=True)
+    )
+    summary["customer_percentage"] = (
+        summary["customer_count"] / summary["customer_count"].sum() * 100
+    )
+    return summary
+
+
+def render_cluster_report():
+    st.divider()
+    st.subheader("Customer Cluster Report")
+    st.caption(
+        "RFM segments for the full exported customer dataset. "
+        "This report is not filtered by the purchase date range above."
+    )
+
+    if not CLUSTER_REPORT_PATH.is_file():
+        st.error(
+            "Customer cluster report not found. Generate "
+            "data/processed/customer_cluster_report.csv by running "
+            "ecommerce_ml.analysis.cluster_customers."
+        )
+        return
+
+    report = load_cluster_report()
+    if report.empty:
+        st.info("The customer cluster report contains no customer records.")
+        return
+
+    summary = summarize_cluster_report(report)
+    total_customers = int(summary["customer_count"].sum())
+    st.metric("Clustered Customers", f"{total_customers:,}")
+
+    left, right = st.columns([1, 2])
+    with left:
+        st.subheader("Customers by Segment")
+        st.bar_chart(
+            summary.set_index("segment_names")["customer_count"]
+        )
+
+    with right:
+        st.subheader("RFM Profile by Segment")
+        display_summary = summary.rename(
+            columns={
+                "segment_names": "Segment",
+                "customer_count": "Customers",
+                "customer_percentage": "Customers (%)",
+                "avg_recency": "Avg recency (days)",
+                "median_recency": "Median recency (days)",
+                "avg_frequency": "Avg orders",
+                "median_frequency": "Median orders",
+                "avg_monetary": "Avg spend",
+                "median_monetary": "Median spend",
+            }
+        ).round(2)
+        st.dataframe(
+            display_summary.drop(columns="cluster"),
+            use_container_width=True,
+            hide_index=True,
+        )
+
+    st.subheader("Customer Records")
+    segments = ["All segments", *summary["segment_names"].tolist()]
+    selected_segment = st.selectbox(
+        "Filter by segment",
+        segments,
+        key="customer_cluster_segment",
+    )
+
+    customer_records = report
+    if selected_segment != "All segments":
+        customer_records = report[
+            report["segment_names"] == selected_segment
+        ]
+
+    display_columns = [
+        "customer_unique_id",
+        "segment_names",
+        "cluster",
+        "recency",
+        "frequency",
+        "monetary",
+    ]
+    st.download_button(
+        "Download filtered customer records",
+        data=customer_records.loc[:, display_columns].to_csv(index=False),
+        file_name="customer_cluster_report.csv",
+        mime="text/csv",
+        use_container_width=True,
+    )
+    preview = customer_records.loc[:, display_columns].head(1000)
+    st.dataframe(
+        preview,
+        use_container_width=True,
+        hide_index=True,
+    )
+    if len(customer_records) > len(preview):
+        st.caption(
+            f"Showing {len(preview):,} of {len(customer_records):,} "
+            "matching customers. Download the CSV for all matching records."
+        )
+
 
 def render_overview(start_date, end_date):
     page_header(
@@ -322,6 +470,7 @@ def render_customers(start_date, end_date):
         st.info(
             "No purchasing customers found in this date range."
         )
+        render_cluster_report()
         return
 
     unique_customers = int(
@@ -376,6 +525,7 @@ def render_customers(start_date, end_date):
         "and included only when they ordered during "
         "the selected window."
     )
+    render_cluster_report()
 
 
 def render_payments(start_date, end_date):
