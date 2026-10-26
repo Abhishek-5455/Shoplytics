@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 
 from .rfm import build_rfm
 
-OUTPUT_PATH = 'data/processed'
+OUTPUT_PATH = 'reports'
 
 SEGMENT_NAMES = {
     0: "High-Spending Infrequent Buyers",

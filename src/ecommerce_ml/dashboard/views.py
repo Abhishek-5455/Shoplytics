@@ -24,8 +24,7 @@ from ecommerce_ml.dashboard.utils import format_money
 
 CLUSTER_REPORT_PATH = (
     Path(__file__).resolve().parents[3]
-    / "data"
-    / "processed"
+    / "reports"
     / "customer_cluster_report.csv"
 )
 CLUSTER_REPORT_COLUMNS = (

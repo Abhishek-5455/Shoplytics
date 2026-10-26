@@ -22,12 +22,7 @@ htmlcov/
 
 # Data files
 data/raw/*
-data/processed/*
 !data/raw/.gitkeep
-!data/processed/.gitkeep
-
-# streamlit secrets
-.streamlit/secrets.toml
 
 # IDE and operating system
 .vscode/
